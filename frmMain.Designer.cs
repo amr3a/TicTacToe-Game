@@ -38,6 +38,8 @@
             this.pbPicture9 = new System.Windows.Forms.PictureBox();
             this.pbPicture8 = new System.Windows.Forms.PictureBox();
             this.pbPicture7 = new System.Windows.Forms.PictureBox();
+            this.btnPlayer1 = new System.Windows.Forms.Button();
+            this.btnPlayer2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture3)).BeginInit();
@@ -51,11 +53,9 @@
             // 
             // lblCellContainer
             // 
-            this.lblCellContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblCellContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCellContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCellContainer.Location = new System.Drawing.Point(248, 100);
+            this.lblCellContainer.Location = new System.Drawing.Point(430, 89);
             this.lblCellContainer.Name = "lblCellContainer";
             this.lblCellContainer.Size = new System.Drawing.Size(366, 365);
             this.lblCellContainer.TabIndex = 0;
@@ -63,8 +63,9 @@
             // 
             // pbPicture1
             // 
+            this.pbPicture1.BackColor = System.Drawing.SystemColors.Control;
             this.pbPicture1.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture1.Location = new System.Drawing.Point(259, 116);
+            this.pbPicture1.Location = new System.Drawing.Point(441, 105);
             this.pbPicture1.Name = "pbPicture1";
             this.pbPicture1.Size = new System.Drawing.Size(80, 80);
             this.pbPicture1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -75,7 +76,7 @@
             // pbPicture2
             // 
             this.pbPicture2.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture2.Location = new System.Drawing.Point(388, 116);
+            this.pbPicture2.Location = new System.Drawing.Point(570, 105);
             this.pbPicture2.Name = "pbPicture2";
             this.pbPicture2.Size = new System.Drawing.Size(80, 80);
             this.pbPicture2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -86,7 +87,7 @@
             // pbPicture3
             // 
             this.pbPicture3.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture3.Location = new System.Drawing.Point(510, 116);
+            this.pbPicture3.Location = new System.Drawing.Point(692, 105);
             this.pbPicture3.Name = "pbPicture3";
             this.pbPicture3.Size = new System.Drawing.Size(80, 80);
             this.pbPicture3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -97,7 +98,7 @@
             // pbPicture6
             // 
             this.pbPicture6.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture6.Location = new System.Drawing.Point(513, 224);
+            this.pbPicture6.Location = new System.Drawing.Point(695, 213);
             this.pbPicture6.Name = "pbPicture6";
             this.pbPicture6.Size = new System.Drawing.Size(80, 80);
             this.pbPicture6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -108,7 +109,7 @@
             // pbPicture5
             // 
             this.pbPicture5.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture5.Location = new System.Drawing.Point(391, 224);
+            this.pbPicture5.Location = new System.Drawing.Point(573, 213);
             this.pbPicture5.Name = "pbPicture5";
             this.pbPicture5.Size = new System.Drawing.Size(80, 80);
             this.pbPicture5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -119,7 +120,7 @@
             // pbPicture4
             // 
             this.pbPicture4.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture4.Location = new System.Drawing.Point(262, 224);
+            this.pbPicture4.Location = new System.Drawing.Point(444, 213);
             this.pbPicture4.Name = "pbPicture4";
             this.pbPicture4.Size = new System.Drawing.Size(80, 80);
             this.pbPicture4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -130,7 +131,7 @@
             // pbPicture9
             // 
             this.pbPicture9.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture9.Location = new System.Drawing.Point(513, 338);
+            this.pbPicture9.Location = new System.Drawing.Point(695, 327);
             this.pbPicture9.Name = "pbPicture9";
             this.pbPicture9.Size = new System.Drawing.Size(80, 80);
             this.pbPicture9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -141,7 +142,7 @@
             // pbPicture8
             // 
             this.pbPicture8.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture8.Location = new System.Drawing.Point(391, 338);
+            this.pbPicture8.Location = new System.Drawing.Point(573, 327);
             this.pbPicture8.Name = "pbPicture8";
             this.pbPicture8.Size = new System.Drawing.Size(80, 80);
             this.pbPicture8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -152,7 +153,7 @@
             // pbPicture7
             // 
             this.pbPicture7.Image = global::Tic_Tac_Toe_Game.Properties.Resources.QM;
-            this.pbPicture7.Location = new System.Drawing.Point(262, 338);
+            this.pbPicture7.Location = new System.Drawing.Point(444, 327);
             this.pbPicture7.Name = "pbPicture7";
             this.pbPicture7.Size = new System.Drawing.Size(80, 80);
             this.pbPicture7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -160,11 +161,35 @@
             this.pbPicture7.TabStop = false;
             this.pbPicture7.Click += new System.EventHandler(this.pbPicture7_Click);
             // 
+            // btnPlayer1
+            // 
+            this.btnPlayer1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnPlayer1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnPlayer1.Location = new System.Drawing.Point(40, 403);
+            this.btnPlayer1.Name = "btnPlayer1";
+            this.btnPlayer1.Size = new System.Drawing.Size(149, 51);
+            this.btnPlayer1.TabIndex = 10;
+            this.btnPlayer1.Text = "Player1";
+            this.btnPlayer1.UseVisualStyleBackColor = false;
+            // 
+            // btnPlayer2
+            // 
+            this.btnPlayer2.BackColor = System.Drawing.Color.DarkRed;
+            this.btnPlayer2.ForeColor = System.Drawing.Color.White;
+            this.btnPlayer2.Location = new System.Drawing.Point(185, 403);
+            this.btnPlayer2.Name = "btnPlayer2";
+            this.btnPlayer2.Size = new System.Drawing.Size(149, 51);
+            this.btnPlayer2.TabIndex = 11;
+            this.btnPlayer2.Text = "Player2";
+            this.btnPlayer2.UseVisualStyleBackColor = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 528);
+            this.Controls.Add(this.btnPlayer2);
+            this.Controls.Add(this.btnPlayer1);
             this.Controls.Add(this.pbPicture9);
             this.Controls.Add(this.pbPicture8);
             this.Controls.Add(this.pbPicture7);
@@ -205,5 +230,7 @@
         private System.Windows.Forms.PictureBox pbPicture9;
         private System.Windows.Forms.PictureBox pbPicture8;
         private System.Windows.Forms.PictureBox pbPicture7;
+        private System.Windows.Forms.Button btnPlayer1;
+        private System.Windows.Forms.Button btnPlayer2;
     }
 }

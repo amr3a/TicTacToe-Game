@@ -17,7 +17,7 @@ namespace Tic_Tac_Toe_Game
 
     public partial class frmMain : Form
     {
-        public enum enPlayerType
+        public enum enCellType
         {
             QM,
             X,
@@ -35,10 +35,10 @@ namespace Tic_Tac_Toe_Game
             Active,
             Unactive
         }
-        private struct Player
+        private struct stPlayer
         {
            public enPlayerName playerName;
-           public enPlayerType playerType;
+           public enCellType playerType;
            public enPlayerState playerState;
 
         
@@ -61,9 +61,9 @@ namespace Tic_Tac_Toe_Game
             {
                 switch (playerType)
                 {
-                    case enPlayerType.X:
+                    case enCellType.X:
                        return Properties.Resources.X;
-                    case enPlayerType.O:
+                    case enCellType.O:
                         return Properties.Resources.O;
                     default:
                         return Properties.Resources.QM;
@@ -73,9 +73,9 @@ namespace Tic_Tac_Toe_Game
             {
                 switch(playerType)
                 {
-                    case enPlayerType.X:
+                    case enCellType.X:
                         return "X";
-                    case enPlayerType.O:
+                    case enCellType.O:
                         return "O";
 
                     default:
@@ -90,32 +90,112 @@ namespace Tic_Tac_Toe_Game
                 return pictureBox;
             }
 
-
+            public bool IsPlayerActive()
+            {
+                return this.playerState == enPlayerState.Active;
+            }
         }
-        private Player firstPlayer = new Player();
-        private Player secondPlayer = new Player();
-        public frmMain()
+        private struct stGridCells
+        {
+            public enCellType Cell1;
+            public enCellType Cell2;
+            public enCellType Cell3;
+            public enCellType Cell4;
+            public enCellType Cell5;
+            public enCellType Cell6;
+            public enCellType Cell7;
+            public enCellType Cell8;
+            public enCellType Cell9;
+            public byte SettedCells;
+
+            public bool IsFirstRowHasEqualValues()
+            {
+                return this.Cell1 == this.Cell2 && this.Cell2 == this.Cell3;
+            }
+            public bool IsSecondRowHasEqualValues()
+            {
+                return this.Cell4 == this.Cell5 && this.Cell5 == this.Cell6;
+            }
+            public bool IsThirdRowHasEqualValues()
+            {
+                return this.Cell7 == this.Cell8 && this.Cell8 == this.Cell9;
+            }
+            public bool IsFirstColHasEqualValues()
+            {
+                return this.Cell1 == this.Cell4 && this.Cell4 == this.Cell7;
+            }
+            public bool IsSecondColHasEqualValues()
+            {
+                return this.Cell2 == this.Cell5 && this.Cell5 == this.Cell8;
+            }
+            public bool IsThirdColHasEqualValues()
+            {
+                return this.Cell3 == this.Cell6 && this.Cell6 == this.Cell9;
+            }
+            public bool IsMainDaigonalHasEqualValues()
+            {
+                return this.Cell1 == this.Cell5 && this.Cell4 == this.Cell9;
+            }
+            public bool IsSecondaryDaigonalHasEqualValues()
+            {
+                return this.Cell1 == this.Cell5 && this.Cell4 == this.Cell9;
+            }
+            public bool IsSettedCellsMoreThan3()
+            {
+                return this.SettedCells >= 3;
+            }
+        }
+
+        private stPlayer firstPlayer = new stPlayer();
+        private stPlayer secondPlayer = new stPlayer();
+        private stGridCells GridCells = new stGridCells();
+
+        private void IntializeFirstPlayer()
         {
             firstPlayer.playerName = enPlayerName.Player1;
-            firstPlayer.playerType = enPlayerType.X;
+            firstPlayer.playerType = enCellType.X;
             firstPlayer.playerState = enPlayerState.Active;
-
+        }
+        private void IntializeSecondPlayer()
+        {
             secondPlayer.playerName = enPlayerName.Player2;
-            secondPlayer.playerType = enPlayerType.O;
+            secondPlayer.playerType = enCellType.O;
             secondPlayer.playerState = enPlayerState.Unactive;
+        }
+        private void IntializeGridCells()
+        {
+            GridCells.Cell1 = enCellType.QM;
+            GridCells.Cell2 = enCellType.QM;
+            GridCells.Cell3 = enCellType.QM;
+            GridCells.Cell4 = enCellType.QM;
+            GridCells.Cell5 = enCellType.QM;
+            GridCells.Cell6 = enCellType.QM;
+            GridCells.Cell7 = enCellType.QM;
+            GridCells.Cell8 = enCellType.QM;
+            GridCells.Cell9 = enCellType.QM;
+
+            GridCells.SettedCells = 0;
+        }
+        public frmMain()
+        {
+            IntializeFirstPlayer();
+            IntializeSecondPlayer();
+            IntializeGridCells();
+
+
             InitializeComponent();
         }
         private void initializeCellContainer()
         {
-            lblCellContainer.Width = 260;
-            lblCellContainer.Height = 260;
+            lblCellContainer.Width = 300;
+            lblCellContainer.Height = 300;
           
         }
         private void SetPicturesInGrid()
         {
             int cellSize = lblCellContainer.Width / 3;
             int cellDoubleSize = cellSize + cellSize;
-            int ExtraDistance = 13;
+            int ExtraDistance = 19;
             pbPicture1.Location = new Point(lblCellContainer.Location.X + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
             pbPicture2.Location = new Point(lblCellContainer.Location.X + cellSize + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
             pbPicture3.Location = new Point(lblCellContainer.Location.X + cellDoubleSize + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
@@ -168,66 +248,119 @@ namespace Tic_Tac_Toe_Game
             DrawGrid(e);
            
         }
+        
+        
         private PictureBox UpdatePictureCell(PictureBox pictureBox)
         {
-            if(firstPlayer.playerState == enPlayerState.Active)
+            if(firstPlayer.IsPlayerActive())
             {
+                pictureBox = firstPlayer.UpdatePictureBox(pictureBox);
                 firstPlayer.playerState = enPlayerState.Unactive;
                 secondPlayer.playerState = enPlayerState.Active;
-                return  firstPlayer.UpdatePictureBox(pictureBox);
+                
                 
             }
             else
             {
+                pictureBox = secondPlayer.UpdatePictureBox(pictureBox);
                 secondPlayer.playerState = enPlayerState.Unactive;
                 firstPlayer.playerState = enPlayerState.Active;
 
-                return secondPlayer.UpdatePictureBox(pictureBox);
+                
+            }
+
+            return pictureBox;
+        }
+       
+        
+        private void EnablePlayer1Button()
+        {
+            btnPlayer2.Enabled = false;
+            btnPlayer2.BackColor = Color.Gray;
+
+            btnPlayer1.Enabled = true;
+            btnPlayer1.BackColor = Color.RoyalBlue;
+        }
+        private void EnablePlayer2Button()
+        {
+            btnPlayer1.Enabled = false;
+            btnPlayer1.BackColor = Color.Gray;
+
+            btnPlayer2.Enabled = true;
+            btnPlayer2.BackColor = Color.DarkRed;
+        }
+        private void UpdatePlayerButtonState()
+        {
+            if(firstPlayer.IsPlayerActive())
+            {
+                EnablePlayer1Button();
+        
+            }
+            else
+            {
+                EnablePlayer2Button();
             }
         }
+        private enCellType GetCellType()
+        {
+            return firstPlayer.IsPlayerActive() ? firstPlayer.playerType : secondPlayer.playerType;
+        }
+       
         private void pbPicture1_Click(object sender, EventArgs e)
         {
             pbPicture1 = UpdatePictureCell(pbPicture1);
+            UpdatePlayerButtonState();
+
+            GridCells.Cell1 = GetCellType();
+            GridCells.SettedCells++;
         }
 
         private void pbPicture2_Click(object sender, EventArgs e)
         {
             pbPicture2 = UpdatePictureCell(pbPicture2);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture3_Click(object sender, EventArgs e)
         {
             pbPicture3 = UpdatePictureCell(pbPicture3);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture4_Click(object sender, EventArgs e)
         {
             pbPicture4 = UpdatePictureCell(pbPicture4);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture5_Click(object sender, EventArgs e)
         {
             pbPicture5 = UpdatePictureCell(pbPicture5);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture6_Click(object sender, EventArgs e)
         {
             pbPicture6 = UpdatePictureCell(pbPicture6);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture7_Click(object sender, EventArgs e)
         {
             pbPicture7 = UpdatePictureCell(pbPicture7);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture8_Click(object sender, EventArgs e)
         {
             pbPicture8 = UpdatePictureCell(pbPicture8);
+            UpdatePlayerButtonState();
         }
 
         private void pbPicture9_Click(object sender, EventArgs e)
         {
             pbPicture9 = UpdatePictureCell(pbPicture9);
+            UpdatePlayerButtonState();
         }
 
     }
