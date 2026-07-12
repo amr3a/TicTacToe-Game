@@ -461,6 +461,7 @@ namespace Tic_Tac_Toe_Game
             int cellSize = lblCellContainer.Width / 3;
             int cellDoubleSize = cellSize + cellSize;
             int ExtraDistance = 25;
+
             pbPicture1.Location = new Point(lblCellContainer.Location.X + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
             pbPicture2.Location = new Point(lblCellContainer.Location.X + cellSize + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
             pbPicture3.Location = new Point(lblCellContainer.Location.X + cellDoubleSize + ExtraDistance, lblCellContainer.Location.Y + ExtraDistance);
