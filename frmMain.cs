@@ -105,12 +105,12 @@ namespace Tic_Tac_Toe_Game
                             return "QM";
                     }
                 }
-                public PictureBox UpdatePictureBox(PictureBox pictureBox)
+                public void UpdatePictureBox(PictureBox pictureBox)
                 {
                     string PlayerTypeString = ConvertPlayerTypeToSTring();
                     pictureBox.Tag = PlayerTypeString;
                     pictureBox.Image = PictureBoxImage();
-                    return pictureBox;
+                 
                 }
 
                 public bool IsPlayerActive()
@@ -258,6 +258,18 @@ namespace Tic_Tac_Toe_Game
                        GridCells.Cell4 == enCellType.QM || GridCells.Cell5 == enCellType.QM || GridCells.Cell6 == enCellType.QM ||
                        GridCells.Cell7 == enCellType.QM || GridCells.Cell8 == enCellType.QM || GridCells.Cell9 == enCellType.QM);
                
+            }
+            public void UpdatePictureCell(PictureBox pictureBox)
+            {
+                if (firstPlayer.IsPlayerActive())
+                {
+                     firstPlayer.UpdatePictureBox(pictureBox);
+                }
+                else
+                {
+                    secondPlayer.UpdatePictureBox(pictureBox);
+                }
+                GridCells.SettedCells++;
             }
             public void DetermineTheGameWinners()
             {
@@ -570,19 +582,7 @@ namespace Tic_Tac_Toe_Game
                 ActivatePlayer1();
             }
         }
-        private PictureBox UpdatePictureCell(PictureBox pictureBox)
-        {
-            if(Game.firstPlayer.IsPlayerActive())
-            {
-                pictureBox = Game.firstPlayer.UpdatePictureBox(pictureBox);
-            }
-            else
-            {
-                pictureBox = Game.secondPlayer.UpdatePictureBox(pictureBox); 
-            }
-
-            return pictureBox;
-        }
+   
 
         private void DisablePlayer1Button()
         {
@@ -842,13 +842,13 @@ namespace Tic_Tac_Toe_Game
                 ResetControls();
             }
         }
+
         private void pbPicture1_Click(object sender, EventArgs e)
         {
             if(Game.GridCells.IsCellNotSetted(Game.GridCells.Cell1) && !Game.gameIsEnded) {
 
-                pbPicture1 = UpdatePictureCell(pbPicture1);
+                Game.UpdatePictureCell(pbPicture1);
                 Game.GridCells.Cell1 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
 
@@ -868,11 +868,10 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell2) &&  !Game.gameIsEnded)
             {
-                pbPicture2 = UpdatePictureCell(pbPicture2);
+                Game.UpdatePictureCell(pbPicture2);
           
 
                 Game.GridCells.Cell2 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -891,11 +890,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell3) && !Game.gameIsEnded)
             {
-                pbPicture3 = UpdatePictureCell(pbPicture3);
-               
-
+                Game.UpdatePictureCell(pbPicture3);
+        
                 Game.GridCells.Cell3 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -914,11 +911,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell4) && !Game.gameIsEnded)
             {
-                pbPicture4 = UpdatePictureCell(pbPicture4);
-            
-
+                Game.UpdatePictureCell(pbPicture4);
+     
                 Game.GridCells.Cell4 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -937,11 +932,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell5) && !Game.gameIsEnded)
             {
-                pbPicture5 = UpdatePictureCell(pbPicture5);
+                Game.UpdatePictureCell(pbPicture5);
        
-
                 Game.GridCells.Cell5 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -961,11 +954,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell6) && !Game.gameIsEnded)
             {
-                pbPicture6 = UpdatePictureCell(pbPicture6);
-             
+                Game.UpdatePictureCell(pbPicture6);
 
                 Game.GridCells.Cell6 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -984,11 +975,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell7) && !Game.gameIsEnded)
             {
-                pbPicture7 = UpdatePictureCell(pbPicture7);
-              
-
+                Game.UpdatePictureCell(pbPicture7);
+        
                 Game.GridCells.Cell7 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -1007,11 +996,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell8) && !Game.gameIsEnded)
             {
-                pbPicture8 = UpdatePictureCell(pbPicture8);
-               
-
+                Game.UpdatePictureCell(pbPicture8);
+        
                 Game.GridCells.Cell8 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
@@ -1030,11 +1017,9 @@ namespace Tic_Tac_Toe_Game
         {
             if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell9) && !Game.gameIsEnded)
             {
-                pbPicture9 = UpdatePictureCell(pbPicture9);
-              
+                Game.UpdatePictureCell(pbPicture9);
 
                 Game.GridCells.Cell9 = Game.GetCellType();
-                Game.GridCells.SettedCells++;
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
                 GameWinner();
