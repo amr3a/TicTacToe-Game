@@ -246,7 +246,8 @@
             this.pbPicture9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture9.TabIndex = 9;
             this.pbPicture9.TabStop = false;
-            this.pbPicture9.Click += new System.EventHandler(this.pbPicture9_Click);
+            this.pbPicture9.Tag = "?";
+            this.pbPicture9.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture8
             // 
@@ -257,7 +258,8 @@
             this.pbPicture8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture8.TabIndex = 8;
             this.pbPicture8.TabStop = false;
-            this.pbPicture8.Click += new System.EventHandler(this.pbPicture8_Click);
+            this.pbPicture8.Tag = "?";
+            this.pbPicture8.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture7
             // 
@@ -268,7 +270,8 @@
             this.pbPicture7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture7.TabIndex = 7;
             this.pbPicture7.TabStop = false;
-            this.pbPicture7.Click += new System.EventHandler(this.pbPicture7_Click);
+            this.pbPicture7.Tag = "?";
+            this.pbPicture7.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture6
             // 
@@ -279,7 +282,8 @@
             this.pbPicture6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture6.TabIndex = 6;
             this.pbPicture6.TabStop = false;
-            this.pbPicture6.Click += new System.EventHandler(this.pbPicture6_Click);
+            this.pbPicture6.Tag = "?";
+            this.pbPicture6.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture5
             // 
@@ -290,7 +294,8 @@
             this.pbPicture5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture5.TabIndex = 5;
             this.pbPicture5.TabStop = false;
-            this.pbPicture5.Click += new System.EventHandler(this.pbPicture5_Click);
+            this.pbPicture5.Tag = "?";
+            this.pbPicture5.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture4
             // 
@@ -301,7 +306,8 @@
             this.pbPicture4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture4.TabIndex = 4;
             this.pbPicture4.TabStop = false;
-            this.pbPicture4.Click += new System.EventHandler(this.pbPicture4_Click);
+            this.pbPicture4.Tag = "?";
+            this.pbPicture4.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture3
             // 
@@ -312,7 +318,8 @@
             this.pbPicture3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture3.TabIndex = 3;
             this.pbPicture3.TabStop = false;
-            this.pbPicture3.Click += new System.EventHandler(this.pbPicture3_Click);
+            this.pbPicture3.Tag = "?";
+            this.pbPicture3.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture2
             // 
@@ -323,7 +330,8 @@
             this.pbPicture2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture2.TabIndex = 2;
             this.pbPicture2.TabStop = false;
-            this.pbPicture2.Click += new System.EventHandler(this.pbPicture2_Click);
+            this.pbPicture2.Tag = "?";
+            this.pbPicture2.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // pbPicture1
             // 
@@ -335,7 +343,8 @@
             this.pbPicture1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPicture1.TabIndex = 1;
             this.pbPicture1.TabStop = false;
-            this.pbPicture1.Click += new System.EventHandler(this.pbPicture1_Click);
+            this.pbPicture1.Tag = "?";
+            this.pbPicture1.Click += new System.EventHandler(this.pbPicture_Click);
             // 
             // lblRestartGame
             // 

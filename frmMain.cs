@@ -43,18 +43,7 @@ namespace Tic_Tac_Toe_Game
             Draw,
 
         }
-        private enum enCompletedCells
-        {
-            unKnown,
-            FirstRow,
-            SecondRow,
-            ThirdRow,
-            FirstCol,
-            SecondCol,
-            ThirdCol,
-            MainDiagonal,
-            SecondaryDiagonal
-        }
+  
 
         private struct stGame 
         {
@@ -79,7 +68,18 @@ namespace Tic_Tac_Toe_Game
                             return "Unknown Player";
                     }
                 }
-
+                public string PlayerType()
+                {
+                    switch (playerType)
+                    {
+                        case enCellType.X:
+                            return "X";
+                        case enCellType.O:
+                            return "O";
+                        default:
+                            return "QM";
+                    }
+                }
                 public Image PictureBoxImage()
                 {
                     switch (playerType)
@@ -92,22 +92,10 @@ namespace Tic_Tac_Toe_Game
                             return Properties.Resources.QM;
                     }
                 }
-                private string ConvertPlayerTypeToSTring()
-                {
-                    switch (playerType)
-                    {
-                        case enCellType.X:
-                            return "X";
-                        case enCellType.O:
-                            return "O";
-
-                        default:
-                            return "QM";
-                    }
-                }
+              
                 public void UpdatePictureBox(PictureBox pictureBox)
                 {
-                    string PlayerTypeString = ConvertPlayerTypeToSTring();
+                    string PlayerTypeString = PlayerType();
                     pictureBox.Tag = PlayerTypeString;
                     pictureBox.Image = PictureBoxImage();
                  
@@ -122,93 +110,11 @@ namespace Tic_Tac_Toe_Game
                     return this.gameWinner == enGameState.Win;
                 }
             }
-            public struct stGridCells
-            {
-                public enCellType Cell1;
-                public enCellType Cell2;
-                public enCellType Cell3;
-                public enCellType Cell4;
-                public enCellType Cell5;
-                public enCellType Cell6;
-                public enCellType Cell7;
-                public enCellType Cell8;
-                public enCellType Cell9;
-                public byte SettedCells;
-
-                public bool IsFirstRowHasEqualValues()
-                {
-                    if (this.Cell1 != enCellType.QM)
-                        return this.Cell1 == this.Cell2 && this.Cell2 == this.Cell3;
-                    else
-                        return false;
-                }
-                public bool IsSecondRowHasEqualValues()
-                {
-                    if (this.Cell4 != enCellType.QM)
-                        return this.Cell4 == this.Cell5 && this.Cell5 == this.Cell6;
-                    else
-                        return false;
-                }
-                public bool IsThirdRowHasEqualValues()
-                {
-                    if (this.Cell7 != enCellType.QM)
-                        return this.Cell7 == this.Cell8 && this.Cell8 == this.Cell9;
-                    else
-                        return false;
-                }
-                public bool IsFirstColHasEqualValues()
-                {
-                    if (this.Cell1 != enCellType.QM)
-                        return this.Cell1 == this.Cell4 && this.Cell4 == this.Cell7;
-                    else
-                        return false;
-                }
-                public bool IsSecondColHasEqualValues()
-                {
-                    if (this.Cell2 != enCellType.QM)
-                        return this.Cell2 == this.Cell5 && this.Cell5 == this.Cell8;
-                    else
-                        return false;
-                }
-                public bool IsThirdColHasEqualValues()
-                {
-                    if (this.Cell3 != enCellType.QM)
-                        return this.Cell3 == this.Cell6 && this.Cell6 == this.Cell9;
-                    else
-                        return false;
-                }
-                public bool IsMainDaigonalHasEqualValues()
-                {
-                    if (this.Cell1 != enCellType.QM)
-                        return this.Cell1 == this.Cell5 && this.Cell5 == this.Cell9;
-                    else
-                        return false;
-                }
-                public bool IsSecondaryDaigonalHasEqualValues()
-                {
-                    if (this.Cell3 != enCellType.QM)
-                        return this.Cell3 == this.Cell5 && this.Cell5 == this.Cell7;
-                    else
-                        return false;
-                }
-                public bool IsSettedCellsMoreThan3()
-                {
-                    return this.SettedCells >= 3;
-                }
-                public bool IsCellNotSetted(enCellType cell)
-                {
-                    return cell == enCellType.QM;
-                }
-                public bool IsCellSetted(enCellType cell)
-                {
-                    return cell != enCellType.QM;
-                }
-            }
+        
             public stPlayer firstPlayer;
             public stPlayer secondPlayer;
-            public stGridCells GridCells;
-            public enCompletedCells CompletedCells;
             public bool gameIsEnded;
+            public byte SettedCells;
             private void IntializeFirstPlayer()
             {
                 firstPlayer.playerName = enPlayerName.Player1;
@@ -223,42 +129,26 @@ namespace Tic_Tac_Toe_Game
                 secondPlayer.playerState = enPlayerState.Unactive;
                 secondPlayer.gameWinner = enGameState.UnKnown;
             }
-            private void IntializeGridCells()
-            {
-                GridCells.Cell1 = enCellType.QM;
-                GridCells.Cell2 = enCellType.QM;
-                GridCells.Cell3 = enCellType.QM;
-                GridCells.Cell4 = enCellType.QM;
-                GridCells.Cell5 = enCellType.QM;
-                GridCells.Cell6 = enCellType.QM;
-                GridCells.Cell7 = enCellType.QM;
-                GridCells.Cell8 = enCellType.QM;
-                GridCells.Cell9 = enCellType.QM;
-
-                GridCells.SettedCells = 0;
-            }
+          
             public enCellType GetCellType()
             {
                 return firstPlayer.IsPlayerActive() ? firstPlayer.playerType : secondPlayer.playerType;
             }
-
+            public bool IsSettedCellsMoreThan3()
+            {
+                return SettedCells >= 3;
+            }
             public void InatializeGameMembers()
             {
-                CompletedCells = enCompletedCells.unKnown;
+                SettedCells = 0;
                 gameIsEnded = false;
                 IntializeFirstPlayer();
                 IntializeSecondPlayer();
-                IntializeGridCells();
+                
                
             }
 
-            public bool IsGameCompleted()
-            {
-                return !(GridCells.Cell1 == enCellType.QM || GridCells.Cell2 == enCellType.QM || GridCells.Cell3 == enCellType.QM ||
-                       GridCells.Cell4 == enCellType.QM || GridCells.Cell5 == enCellType.QM || GridCells.Cell6 == enCellType.QM ||
-                       GridCells.Cell7 == enCellType.QM || GridCells.Cell8 == enCellType.QM || GridCells.Cell9 == enCellType.QM);
-               
-            }
+        
             public void UpdatePictureCell(PictureBox pictureBox)
             {
                 if (firstPlayer.IsPlayerActive())
@@ -269,150 +159,57 @@ namespace Tic_Tac_Toe_Game
                 {
                     secondPlayer.UpdatePictureBox(pictureBox);
                 }
-                GridCells.SettedCells++;
+                SettedCells++;
             }
-            public void DetermineTheGameWinners()
+            bool CheckIfAllCellsAreEquallySetted(PictureBox Picture1, PictureBox Picture2, PictureBox Picture3)
             {
-                if (GridCells.IsSettedCellsMoreThan3())
+                return Picture1.Tag.ToString() != "?" && Picture1.Tag.ToString() == Picture2.Tag.ToString() 
+                    && Picture2.Tag.ToString() == Picture3.Tag.ToString() ;
+            }
+            private Color GetColor()
+            {
+                return Color.YellowGreen;
+            }
+            private void SetWinnerCellsColor(PictureBox Picture1, PictureBox Picture2, PictureBox Picture3)
+            {
+                Color WinnerColor = GetColor();
+                Picture1.BackColor = WinnerColor;
+                Picture2.BackColor = WinnerColor;
+                Picture3.BackColor = WinnerColor;
+            }
+            public bool WeHaveWinner(PictureBox Picture1, PictureBox Picture2, PictureBox Picture3)
+            {
+                if(CheckIfAllCellsAreEquallySetted(Picture1, Picture2, Picture3))
                 {
-                   if(GridCells.IsFirstRowHasEqualValues())
+     
+                    if (firstPlayer.PlayerType() == Picture1.Tag.ToString())
                     {
-                        CompletedCells = enCompletedCells.FirstRow;
-                        if(GridCells.Cell1 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
+                        SetWinnerCellsColor(Picture1, Picture2, Picture3);
+                        firstPlayer.gameWinner = enGameState.Win;
+                        secondPlayer.gameWinner = enGameState.UnKnown;
                         
                     }
-                    else if (GridCells.IsSecondRowHasEqualValues())
+                    else if(secondPlayer.PlayerType() == Picture1.Tag.ToString())
                     {
-                        CompletedCells = enCompletedCells.SecondRow;
-                        if (GridCells.Cell4 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        
-                    }
-                    else if (GridCells.IsThirdRowHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.ThirdRow;
-                        if (GridCells.Cell7 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                      
-                    }
-                    else if (GridCells.IsFirstColHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.FirstCol;
-                        if (GridCells.Cell1 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                       
-                    }
-                    else if (GridCells.IsSecondColHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.SecondCol;
-                        if (GridCells.Cell2 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                       
-                    }
-                    else if (GridCells.IsThirdColHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.ThirdCol;
-                        if (GridCells.Cell3 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        
-                    }
-                    else if (GridCells.IsMainDaigonalHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.MainDiagonal;
-                        if (GridCells.Cell1 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                      
-                    }
-                    else if (GridCells.IsSecondaryDaigonalHasEqualValues())
-                    {
-                        CompletedCells = enCompletedCells.SecondaryDiagonal;
-                        if (GridCells.Cell3 == firstPlayer.playerType)
-                        {
-                            firstPlayer.gameWinner = enGameState.Win;
-                            secondPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                        else
-                        {
-                            secondPlayer.gameWinner = enGameState.Win;
-                            firstPlayer.gameWinner = enGameState.UnKnown;
-                        }
-                       
-                    }
-                    else if(IsGameCompleted())
-                    {
+                        SetWinnerCellsColor(Picture1, Picture2, Picture3);
+                        secondPlayer.gameWinner = enGameState.Win;
+                        firstPlayer.gameWinner = enGameState.UnKnown;
 
-                        firstPlayer.gameWinner = enGameState.Draw;
-                        secondPlayer.gameWinner = enGameState.Draw;
-                       
                     }
-                    else
-                    {
-                        return;
-                    }
-                    gameIsEnded = true;
+                
+                    return true;
+                }
+                else if (SettedCells == 9)
+                {
+                    secondPlayer.gameWinner = enGameState.Draw;
+                    firstPlayer.gameWinner = enGameState.Draw;
+                    return true;
                 }
                 else
                 {
-
-                    firstPlayer.gameWinner = enGameState.UnKnown;
                     secondPlayer.gameWinner = enGameState.UnKnown;
+                    firstPlayer.gameWinner = enGameState.UnKnown;
+                    return false;
                 }
                 
                
@@ -507,6 +304,17 @@ namespace Tic_Tac_Toe_Game
             pbPicture7.BackColor = Color.FloralWhite;
             pbPicture8.BackColor = Color.FloralWhite;
             pbPicture9.BackColor = Color.FloralWhite;
+
+            pbPicture1.Tag = "?";
+            pbPicture2.Tag = "?";
+            pbPicture3.Tag = "?";
+            pbPicture4.Tag = "?";
+            pbPicture5.Tag = "?";
+            pbPicture6.Tag = "?";
+            pbPicture7.Tag = "?";
+            pbPicture8.Tag = "?";
+            pbPicture9.Tag = "?";
+
 
         }
         private void IntializePlayersTurn()
@@ -668,90 +476,9 @@ namespace Tic_Tac_Toe_Game
             }
         }
         
-        private Color GetColor()
-        {
-            return Color.GreenYellow;
-        }
-        private void FirstRowCompleted()
-        {
-            pbPicture1.BackColor = GetColor();
-            pbPicture2.BackColor = GetColor();
-            pbPicture3.BackColor = GetColor();
-        }
-        private void SecondRowCompleted()
-        {
-            pbPicture4.BackColor = GetColor();
-            pbPicture5.BackColor = GetColor();
-            pbPicture6.BackColor = GetColor();
-        }
-        private void ThirdRowCompleted()
-        {
-            pbPicture7.BackColor = GetColor();
-            pbPicture8.BackColor = GetColor();
-            pbPicture9.BackColor = GetColor();
-        }
-        private void FirstColCompleted()
-        {
-            pbPicture1.BackColor = GetColor();
-            pbPicture4.BackColor = GetColor();
-            pbPicture7.BackColor = GetColor();
-        }
-        private void SecondColCompleted()
-        {
-            pbPicture2.BackColor = GetColor();
-            pbPicture5.BackColor = GetColor();
-            pbPicture8.BackColor = GetColor();
-        }
-        private void ThirdColCompleted()
-        {
-            pbPicture3.BackColor = GetColor();
-            pbPicture6.BackColor = GetColor();
-            pbPicture9.BackColor = GetColor();
-        }
-        private void MainDiagonalCompleted()
-        {
-            pbPicture1.BackColor = GetColor();
-            pbPicture5.BackColor = GetColor();
-            pbPicture9.BackColor = GetColor();
-        }
-        private void SecondaryDiagonalCompleted()
-        {
-            pbPicture3.BackColor = GetColor();
-            pbPicture5.BackColor = GetColor();
-            pbPicture7.BackColor = GetColor();
-        }
-        private void ChangeCompletedCellsBackground()
-        {
-            switch (Game.CompletedCells) 
-            {
-                case enCompletedCells.FirstRow:
-                    FirstRowCompleted();
-                    break;
-                case enCompletedCells.SecondRow:
-                    SecondRowCompleted();
-                    break;
-                case enCompletedCells.ThirdRow:
-                    ThirdRowCompleted();
-                    break;
-                case enCompletedCells.FirstCol:
-                    FirstColCompleted();
-                    break;
-                case enCompletedCells.SecondCol:
-                    SecondColCompleted();
-                    break;
-                case enCompletedCells.ThirdCol:
-                    ThirdColCompleted();
-                    break;
-                case enCompletedCells.MainDiagonal:
-                    MainDiagonalCompleted();
-                    break;
-                case enCompletedCells.SecondaryDiagonal:
-                    SecondaryDiagonalCompleted();
-                    break;
-
-            }
-            
-        }
+       
+  
+      
 
         private void UpdateGameScore()
         {
@@ -782,14 +509,24 @@ namespace Tic_Tac_Toe_Game
 
           
         }
+
+        private void DetermineGameWinner()
+        { 
+            if(Game.WeHaveWinner(pbPicture1, pbPicture2, pbPicture3) || Game.WeHaveWinner(pbPicture4, pbPicture5, pbPicture6) || Game.WeHaveWinner(pbPicture7, pbPicture8, pbPicture9)
+                || Game.WeHaveWinner(pbPicture1, pbPicture4, pbPicture7) || Game.WeHaveWinner(pbPicture2, pbPicture5, pbPicture8) || Game.WeHaveWinner(pbPicture3, pbPicture6, pbPicture9)
+                || Game.WeHaveWinner(pbPicture1, pbPicture5, pbPicture9) || Game.WeHaveWinner(pbPicture3, pbPicture5, pbPicture7))
+            {
+                Game.gameIsEnded = true;
+            }
+        }
         private void GameWinner()
         {
-            if(Game.GridCells.IsSettedCellsMoreThan3() || Game.IsGameCompleted())
+            if(Game.IsSettedCellsMoreThan3() || Game.gameIsEnded)
             {
-                Game.DetermineTheGameWinners();
+                DetermineGameWinner();
                 if (Game.IsGameHasWinner())
                 {
-                    ChangeCompletedCellsBackground();
+                    
                     if (Game.firstPlayer.IsPlayerWinner())
                     {
                         ActivatePlayer1();
@@ -842,19 +579,18 @@ namespace Tic_Tac_Toe_Game
                 ResetControls();
             }
         }
-
-        private void pbPicture1_Click(object sender, EventArgs e)
+        private void ChangeImage(PictureBox Picture )
         {
-            if(Game.GridCells.IsCellNotSetted(Game.GridCells.Cell1) && !Game.gameIsEnded) {
+            if (Picture.Tag.ToString() == "?" && !Game.gameIsEnded)
+            {
 
-                Game.UpdatePictureCell(pbPicture1);
-                Game.GridCells.Cell1 = Game.GetCellType();
+                Game.UpdatePictureCell(Picture);
                 ActivateDisactivatePlayers();
                 ChangePlayerTurn();
 
                 GameWinner();
             }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell1) && !Game.gameIsEnded)
+            else if (Picture.Tag.ToString() != "?" && !Game.gameIsEnded)
             {
                 ShowErrorOfSelectedCellMessage();
             }
@@ -863,175 +599,9 @@ namespace Tic_Tac_Toe_Game
                 ShowGameOverMessage();
             }
         }
-
-        private void pbPicture2_Click(object sender, EventArgs e)
+        private void pbPicture_Click(object sender, EventArgs e)
         {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell2) &&  !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture2);
-          
-
-                Game.GridCells.Cell2 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell2) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture3_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell3) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture3);
-        
-                Game.GridCells.Cell3 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell3) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture4_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell4) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture4);
-     
-                Game.GridCells.Cell4 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell4) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture5_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell5) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture5);
-       
-                Game.GridCells.Cell5 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell5) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-
-        }
-
-        private void pbPicture6_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell6) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture6);
-
-                Game.GridCells.Cell6 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell6) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture7_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell7) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture7);
-        
-                Game.GridCells.Cell7 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell7) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture8_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell8) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture8);
-        
-                Game.GridCells.Cell8 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if(Game.GridCells.IsCellSetted(Game.GridCells.Cell8) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
-        }
-
-        private void pbPicture9_Click(object sender, EventArgs e)
-        {
-            if (Game.GridCells.IsCellNotSetted(Game.GridCells.Cell9) && !Game.gameIsEnded)
-            {
-                Game.UpdatePictureCell(pbPicture9);
-
-                Game.GridCells.Cell9 = Game.GetCellType();
-                ActivateDisactivatePlayers();
-                ChangePlayerTurn();
-                GameWinner();
-            }
-            else if (Game.GridCells.IsCellSetted(Game.GridCells.Cell9) && !Game.gameIsEnded)
-            {
-                ShowErrorOfSelectedCellMessage();
-            }
-            else
-            {
-                ShowGameOverMessage();
-            }
+            ChangeImage((PictureBox)sender);
         }
 
         private void ResetPlayersScore()
